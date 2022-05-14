@@ -1,101 +1,124 @@
 import React from "react";
 import {
-  StyleSheet,
-  Text,
+  StyleSheet, 
+  SafeAreaView, 
   View,
-  TouchableOpacity,
-  Alert,
-  Dimensions,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
-import Button from "./components/ButtonCustom";
-import CardSound from "./components/CardSound";
-import Tag from './components/Tag'
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import Entypo from "react-native-vector-icons/Entypo";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+  Text,Button,
+} from "react-native"; 
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import SleepScreen from "./screens/SleepScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import ComposerScreen from "./screens/ComposerScreen";
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+function SettingsScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Settings!</Text>
+      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+    </View>
+  );
+}
+
+const Tab = createBottomTabNavigator();
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-
-      
-      <View style={{ marginVertical: 10, marginHorizontal: 32 }}>
-        <Button text={"Next"} onPress={() => Alert.alert("Next")} />
-      </View>
-      <View style={{ marginVertical: 10, marginHorizontal: 32 }}>
-        <Button text={"Next"} onPress={() => Alert.alert("Next")} />
-      </View>
-
-
-
-      <View style={{ flexWrap: "nowrap", flexDirection: "row", marginLeft: 16 }}>
-        <View  style={{ marginRight: 16 }}>
-        <Tag />
-        </View>
-        {/* </View>
-        <View  style={{ marginRight: 16 }}>
-        <Tag />
-        </View>
-        <View  style={{ marginRight: 16 }}>
-        <Tag />
-        </View> */}
-      </View>
-
-
-
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        <View
-          style={{ flexWrap: "nowrap", flexDirection: "row", marginLeft: 16 }}
-        >
-          <View style={{ marginRight: 16 }}>
-            <CardSound
-              text={"Female voice"}
-              backgroundColor={"#4870FF"}
-              icon={<FontAwesome name="female" size={30} color="#fff" />}
-            />
+    // <SafeAreaView style={styles.container}>
+    //     <SleepScreen /> 
+    // </SafeAreaView>
+     <NavigationContainer>
+     <Tab.Navigator screenOptions={{
+        tabBarShowLabel: true,
+        tabBarLabelStyle: {
+          fontSize: 12,
+        },
+        tabBarActiveTintColor: "#4870FF",
+        tabBarInactiveTintColor: "#8E8E93",
+        tabBarShadowVisible: false,
+        // Floating Tab Bar...
+        tabBarStyle: {
+          backgroundColor: "rgba(33, 40, 63, 1)",
+          position: "relative",
+          bottom: 0,
+          marginHorizontal: 0,
+          // Max Height...
+          height: 60,
+          // Shadow...
+          shadowColor: "red",
+          borderBottomWidth: 0,
+          borderTopWidth: 0,
+          elevation: 0,
+          shadowOpacity: 0,
+          shadowOffset: {
+            width: 0,
+            height: 0,
+          },
+          padding: 0,
+          paddingBottom: 10,
+        },
+      }}>
+       <Tab.Screen name="Discover" component={SleepScreen} 
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <View
+              style={{
+                // centring Tab Button...
+                position: "absolute",
+                top: 10,
+              }}
+            >
+              <FontAwesome5
+                name="home"
+                size={20}
+                color={focused ? "#4870FF" : "#8E8E93"}
+              ></FontAwesome5>
+            </View>
+          ),
+        }} />
+       <Tab.Screen name="Composer" component={ComposerScreen} 
+       options={{
+        headerShown: false,
+        tabBarIcon: ({ focused }) => (
+          <View
+            style={{
+              // centring Tab Button...
+              position: "absolute",
+              top: 10,
+            }}
+          >
+            <FontAwesome
+              name="music"
+              size={20}
+              color={focused ? "#4870FF" : "#8E8E93"}
+            ></FontAwesome>
           </View>
-          <View style={{ marginRight: 16 }}>
-            <CardSound
-              text={"White noize"}
-              backgroundColor={"#00D971"}
-              icon={<Entypo name="sound" size={30} color="#fff" />}
-            />
+        ),
+      }}/>
+      <Tab.Screen name="Profile" component={ProfileScreen} 
+       options={{
+        headerShown: false,
+        tabBarIcon: ({ focused }) => (
+          <View
+            style={{
+              // centring Tab Button...
+              position: "absolute",
+              top: 10,
+            }}
+          >
+            <FontAwesome
+              name="user"
+              size={20}
+              color={focused ? "#4870FF" : "#8E8E93"}
+            ></FontAwesome>
           </View>
-          <View style={{ marginRight: 16 }}>
-            <CardSound
-              text={"Lullaby"}
-              backgroundColor={"#FF9C41"}
-              icon={<FontAwesome5 name="cloud-moon" size={30} color="#fff" />}
-            />
-          </View>
-
-          <View style={{ marginRight: 16 }}>
-            <CardSound
-              text={"Lullaby"}
-              backgroundColor={"#FF9C41"}
-              icon={<FontAwesome5 name="cloud-moon" size={30} color="#fff" />}
-            />
-          </View>
-
-          <View style={{ marginRight: 16 }}>
-            <CardSound
-              text={"Lullaby"}
-              backgroundColor={"#FF9C41"}
-              icon={<FontAwesome5 name="cloud-moon" size={30} color="#fff" />}
-            />
-          </View>
-
-          <View style={{ marginRight: 16 }}>
-            <CardSound
-              text={"Lullaby"}
-              backgroundColor={"#FF9C41"}
-              icon={<FontAwesome5 name="cloud-moon" size={30} color="#fff" />}
-            />
-          </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        ),
+      }}/>
+     </Tab.Navigator>
+   </NavigationContainer>
   );
 }
 
