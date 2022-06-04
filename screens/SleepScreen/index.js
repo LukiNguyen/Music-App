@@ -1,11 +1,14 @@
-import { StyleSheet, Text, View, ScrollView, Dimensions,SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Dimensions,SafeAreaView,TouchableOpacity } from "react-native";
 import React from "react";
 import Tag from "../../components/Tag";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import CardContent from "../../components/CardContent";
-const SleepScreen = () => {
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import DetailMusic from '../DetailMusic/DetailMusic'
+import { NavigationContainer } from '@react-navigation/native';
+const SleepScreen = ({navigation}) => {
   const dataMusic = [
     {
       title: "Guitar Camp",
@@ -44,12 +47,13 @@ const SleepScreen = () => {
       category: "Instrumental",
     },
   ];
-  return (
+  function HomeScreen({ navigation }) {
+    return (
+      <SafeAreaView style={styles.containerMain}> 
     
-    <SafeAreaView style={styles.containerMain}> 
     <View style={styles.container}>
       <View style={{ paddingHorizontal: 16, marginBottom: 16 }}>
-        <View style={{ marginTop: 44, marginBottom: 16 }}>
+        <View style={{ marginTop: 44, marginBottom: 16 }}> 
           <Text style={styles.title}>Sleep</Text>
         </View>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -89,15 +93,29 @@ const SleepScreen = () => {
         >
           {dataMusic.map((element, index) => {
             return (
-              <View key={index}>
+              <TouchableOpacity key={index} onPress={() => navigation.navigate('Details',{
+                name: element.title,
+                image: element.image
+              })}>
                 <CardContent image={element.image} title={element.title} numberSong={element.numberSong} category={element.category}/>
-              </View>
+              </TouchableOpacity>
             );
           })}
         </View>
       </ScrollView>
     </View>
     </SafeAreaView>
+    );
+  }
+   
+  const Stack = createNativeStackNavigator();
+  return (
+    
+    <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Details" component={DetailMusic}  options={{ headerShown: false }}/>
+      </Stack.Navigator>
+    
   );
 };
 

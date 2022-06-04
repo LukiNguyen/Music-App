@@ -13,7 +13,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import DetailMusic from './screens/DetailMusic/DetailMusic'
 function SettingsScreen({ navigation }) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -24,12 +25,14 @@ function SettingsScreen({ navigation }) {
 }
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     // <SafeAreaView style={styles.container}>
     //     <SleepScreen /> 
     // </SafeAreaView>
-     <NavigationContainer>
+     <NavigationContainer> 
+    
      <Tab.Navigator screenOptions={{
         tabBarShowLabel: true,
         tabBarLabelStyle: {
